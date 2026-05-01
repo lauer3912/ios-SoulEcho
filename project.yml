@@ -1,0 +1,71 @@
+name: SoulEcho
+options:
+  bundleIdPrefix: com.ggsheng
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.0"
+  developmentLanguage: en
+
+settings:
+  base:
+    DEVELOPMENT_TEAM: "9L6N2ZF26B"
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.9"
+    IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+    ENABLE_USER_SCRIPT_SANDBOXING: "NO"
+
+targets:
+  SoulEcho:
+    type: application
+    platform: iOS
+    sources:
+      - path: SoulEcho/Sources
+        type: group
+      - path: SoulEcho/Resources
+        type: group
+    settings:
+      base:
+        INFOPLIST_FILE: SoulEcho/Resources/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.ggsheng.SoulEcho
+        CODE_SIGN_ENTITLEMENTS: SoulEcho/Resources/SoulEcho.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        GENERATE_INFOPLIST_FILE: NO
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 1.0.0
+    entitlements:
+      path: SoulEcho/Resources/SoulEcho.entitlements
+
+  SoulEchoTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: SoulEchoTests
+        type: group
+    settings:
+      base:
+        INFOPLIST_FILE: SoulEchoTests/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.ggsheng.SoulEchoTests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/SoulEcho.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SoulEcho"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+    dependencies:
+      - target: SoulEcho
+
+schemes:
+  SoulEcho:
+    build:
+      targets:
+        SoulEcho: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - SoulEchoTests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
